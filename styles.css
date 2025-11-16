@@ -3,6 +3,12 @@ body{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* Top Bar */
 
 header{
@@ -36,7 +42,6 @@ h1{
 input[type="color"] {
   width: 70px;
   height: 40px;
-  box-sizing: border-box;
 }
 
 #scheme-drop-down{
@@ -54,6 +59,21 @@ input[type="color"] {
     background-color: white;
 }
 
+/* Colour Palette */
+
+#colour-palette-display{
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+height: 83.5%;
+}
+
+.colour-column{
+    border: 1px solid grey;
+}
+
+.colour-bar{
+  height: 90%;
+}
 
 /* Media Queries Responsive */
 
