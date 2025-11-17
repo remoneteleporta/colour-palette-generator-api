@@ -1,5 +1,14 @@
 const seedColourInput = document.getElementById("seed-colour-input")
 const seedHexInput = document.getElementById("seed-colour-hex")
+const getSchemeBtn = document.getElementById("get-scheme-btn")
+const schemeType = document.getElementById("scheme-type")
+const colourRender = document.getElementById("colour-palette-display")
+
+window.addEventListener("load", ()=>{
+    let storedInput = JSON.parse(localStorage.getItem("colourInput")).toUpperCase()
+    seedHexInput.value = storedInput
+    seedColourInput.value = storedInput
+})
 
 /* Getting Seed Colour Input as Hex Code */
 
@@ -13,6 +22,49 @@ seedColourInput.addEventListener("input", function(){
     seedHexInput.value = seedColourInput.value.toUpperCase();
 });
 
-fetch("https://www.thecolorapi.com/scheme?hex=24B1E0&mode=triad&count=6")
+/* Parameter Input & API fetch & Input Local Store */
+
+getSchemeBtn.addEventListener("click", () => {
+
+localStorage.setItem("colourInput", JSON.stringify(seedColourInput.value))
+
+let hashlessHex = seedColourInput.value.replace('#','');
+let apiParameter = `hex=${hashlessHex}&mode=${schemeType.value}&count=5`
+
+fetch(`https://www.thecolorapi.com/scheme?${apiParameter}`)
 .then(resp => resp.json())
-.then(data => console.log(data))
+.then(data => {
+    if(data.seed.hex.clean === hashlessHex.toUpperCase())
+    {
+    getColour(data)
+    }
+    })
+})
+
+/* Get Scheme Colours from API and store in Array */
+
+function getColour(coloursObject){
+    let paletteArray = []
+    for(let i=0; i < coloursObject.count; i++)
+    {
+        paletteArray.push(coloursObject.colors[i].hex.value)
+    }
+    renderScheme(paletteArray)
+}
+
+/* Render Palette */
+
+function renderScheme(colourPalette){
+
+colourRender.innerHTML = colourPalette.map(function(colours){
+    return `<div class="colour-column">
+           <div class="colour-bar" id="${colours.replace('#','')}"></div>
+           <p class="colour-hex-code" id="hex-code-${colours.replace('#','')}">${colours}</p>
+       </div>`
+    }).join("")
+
+document.querySelectorAll('.colour-bar').forEach(bar => {
+  const hexCode = bar.id; 
+  bar.style.background = `#${hexCode}`;
+});
+}

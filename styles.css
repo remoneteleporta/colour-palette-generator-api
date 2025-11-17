@@ -1,19 +1,20 @@
 body{
-    margin: 0;
+    margin: auto;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+    width: 800px;
+    height: 700px;
+    border: 1px solid silver;
+    border-radius: 5px;
 }
 
 /* Top Bar */
 
 header{
     text-align: center;
-    background-image: linear-gradient(to right, ivory,grey);
+    background: rgba(255, 255, 240, 0.35);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 h1{
@@ -22,21 +23,11 @@ h1{
 
 /* Seed Colour & Scheme*/
 
-
 #seed-colour-select{
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
     border-bottom: 2px solid whitesmoke;
-    padding-bottom: 10px;
-}
-
-#seed-colour-input{
-    margin: 15px 20px;
-}
-
-#seed-colour-hex{
-    margin: 2px 10px 0 20px;
-    padding-top: 20px;
+    padding: 0 10px 10px 10px;
 }
 
 input[type="color"] {
@@ -44,42 +35,31 @@ input[type="color"] {
   height: 40px;
 }
 
-#scheme-drop-down{
-    margin: 22px 0 0 0;
-}
-
-#scheme-type, #get-scheme-btn{
-    padding: 10px 5px;
+#seed-colour-input, #scheme-type, #get-scheme-btn, #seed-colour-hex{
+    margin: 15px 30px 0 0;
     border: 1px solid #D1D5DB;
     border-radius: 5px;
+    background-color: white;
+    padding: 4px 10px;
 }
 
-#get-scheme-btn{
-    margin: 15px 0 0 10px;
-    background-color: white;
+#get-scheme-btn:active{
+    box-shadow: 0 0 2px black;
 }
+
 
 /* Colour Palette */
 
 #colour-palette-display{
 display: grid;
 grid-template-columns: repeat(5, 1fr);
-height: 83.5%;
-}
-
-.colour-column{
-    border: 1px solid grey;
 }
 
 .colour-bar{
-  height: 90%;
+  padding-bottom: 500px;
+  height: 8%;
 }
 
-/* Media Queries Responsive */
-
-@media(min-width: 550px){
-
-    #scheme-drop-down{
-    margin-top: 5px;
-}
+.colour-hex-code{
+  text-align: center;
 }
