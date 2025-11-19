@@ -60,6 +60,26 @@ grid-template-columns: repeat(5, 1fr);
   height: 8%;
 }
 
-.colour-hex-code{
+.colour-hex-code, #status-msg{
   text-align: center;
+}
+
+/* Copy Status */
+
+#status-msg{
+  border: 1px solid #D1D5DB;
+    border-radius: 5px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right:0;
+    left: 0;
+    display: none;
+    color: green;
+    margin : auto;
+    width: 90px;
+    height: 20px;
+    padding: 10px;
+    font-size: large;
 }

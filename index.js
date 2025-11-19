@@ -14,13 +14,13 @@ window.addEventListener("load", ()=>{
 
 seedHexInput.addEventListener("input", function(){
      if (/^#([0-9A-F]{6})$/i.test(seedHexInput.value)) {
-        seedColourInput.value = seedHexInput.value;
+        seedColourInput.value = seedHexInput.value
     }
 })
 
 seedColourInput.addEventListener("input", function(){
-    seedHexInput.value = seedColourInput.value.toUpperCase();
-});
+    seedHexInput.value = seedColourInput.value.toUpperCase()
+})
 
 /* Parameter Input & API fetch & Input Local Store */
 
@@ -59,12 +59,34 @@ function renderScheme(colourPalette){
 colourRender.innerHTML = colourPalette.map(function(colours){
     return `<div class="colour-column">
            <div class="colour-bar" id="${colours.replace('#','')}"></div>
-           <p class="colour-hex-code" id="hex-code-${colours.replace('#','')}">${colours}</p>
+           <p class="colour-hex-code" id="${colours.replace('#','')}">${colours}</p>
        </div>`
     }).join("")
 
 document.querySelectorAll('.colour-bar').forEach(bar => {
   const hexCode = bar.id; 
   bar.style.background = `#${hexCode}`;
-});
+  
+})
+}
+
+/* Copying Colour Hexcode to Clipboard */
+colourRender.addEventListener('click', e =>
+    copyClipboardText(e.target.id)
+)
+
+async function copyClipboardText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    let copyStatus = document.getElementById("status-msg")
+    
+    copyStatus.style.display = "block";
+
+    setTimeout(() => {
+        copyStatus.style.display = "none";
+    }, 2000);
+  } 
+  catch (error) {
+    console.error(error.message);
+  }
 }
